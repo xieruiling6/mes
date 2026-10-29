@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: gongqing-mes-backend
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  datasource:
+    # Override these environment variables per environment; never store real credentials here.
+    url: ${DB_URL:jdbc:mysql://localhost:3306/gongqing_mes?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      pool-name: GongqingMesHikariPool
+      maximum-pool-size: ${DB_POOL_MAX_SIZE:10}
+      minimum-idle: ${DB_POOL_MIN_IDLE:2}
+      connection-timeout: ${DB_CONNECTION_TIMEOUT_MS:30000}
+      validation-timeout: ${DB_VALIDATION_TIMEOUT_MS:5000}
+  jackson:
+    time-zone: UTC
+    default-property-inclusion: non_null
+
+mybatis-plus:
+  # Mapper XML is reserved for explicit joins, aggregates, and locking queries.
+  mapper-locations: classpath:/mapper/**/*.xml
+  configuration:
+    # Enables mapping columns such as created_at to Java createdAt properties.
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
+  global-config:
+    banner: false
+
+server:
+  port: ${SERVER_PORT:8080}
+  shutdown: graceful
+  servlet:
+    session:
+      cookie:
+        http-only: true
+        secure: ${SESSION_COOKIE_SECURE:false}
+        same-site: lax
+
+logging:
+  pattern:
+    level: "%5p [traceId:%X{traceId}]"

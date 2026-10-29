@@ -1,0 +1,12 @@
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    hikari:
+      maximum-pool-size: 3
+      minimum-idle: 0
+
+logging:
+  level:
+    com.gongqing.mes: INFO

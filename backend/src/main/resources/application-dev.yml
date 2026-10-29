@@ -1,0 +1,11 @@
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+logging:
+  level:
+    com.gongqing.mes: DEBUG
+    org.springframework.web: INFO
+    com.baomidou.mybatisplus: INFO
+    com.zaxxer.hikari: INFO
